@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab Inactivity</title>
+</head>
+<body>
+  <div id="status" style="font-size: 24px; text-align: center; margin-top: 50px;">Welcome!</div>
+  <script>
+    const statusElement = document.getElementById("status");
+
+    // Setting the inactivity time to 5 seconds
+    const INACTIVITY_TIME = 5000;
+    let timer;
+
+    // Function to change the text
+    function setInactive() {
+      statusElement.innerText = "Tab is inactive";
+    }
+
+    // Function to reset the text and start the timer again
+    function resetTimer() {
+      statusElement.innerText = "Welcome!";
+      clearTimeout(timer);
+      timer = setTimeout(setInactive, INACTIVITY_TIME);
+    }
+
+    // Event listener for when the tab visibility changes
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        timer = setTimeout(setInactive, INACTIVITY_TIME);
+      } else {
+        resetTimer();
+      }
+    });
+
+    resetTimer();
+  </script>
+</body>
+</html>
