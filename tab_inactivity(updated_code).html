@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab Inactivity</title>
+</head>
+<body>
+  <div id="status" style="font-size: 24px; text-align: center; margin-top: 50px;">Welcome!</div>
+  <script>
+    const statusElement = document.getElementById("status");
+	
+	const INACTIVY_TIME=5000;
+	let lastActiveTime = Date.now();
+	
+	
+	function checkInactivity(){
+		const currentTime = Date.now();
+		if(currentTime - lastActiveTime >=INACTIVY_TIME)
+		{
+			statusElement.innerText="Tab is Inactive";
+		}
+	}
+	
+	function resetActivity(){
+		lastActiveTime =Date.now();
+		statusElement.innerText="welcome";
+	}
+	
+	document.addEventListener("mousemove", resetActivity);
+	document.addEventListener("keydown", resetActivity);
+	
+	document.addEventListener("visibilitychange",()=>{
+		if(!document.hidden){
+			resetActivity();
+		}
+	})
+	
+	setInterval(checkInactivity,2000);
+  </script>
+</body>
+</html>
